@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="data"
+            type="com.example.cloneapp.data.model.DataList" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="130dp"
+            android:layout_height="105dp"
+            bind_img="@{data.no}"
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="6dp"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.name}"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/star" />
+
+                <TextView
+                    android:id="@+id/tv_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    bind_grade ="@{data.grade}"/>
+
+                <TextView
+                    android:id="@+id/tv_review_cnt"
+                    bind_cnt="@{data.no}"
+                    android:layout_marginStart="5dp"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_marginTop="4dp"
+                    android:text="@{data.location}"
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/tv_remote"
+                    bind_boolean="@{data.remote}"
+                    android:textColor="#3F4567"
+                    android:background="@drawable/remote_shape"
+                    android:padding="5dp"
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>
+
+

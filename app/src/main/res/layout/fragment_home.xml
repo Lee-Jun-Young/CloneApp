@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="home"
+            type="com.example.cloneapp.ui.main.HomeFragment" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.main.HomeFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/Theme.Design.NoActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/collapsing_toolbar"
+                android:background="@color/white"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="안녕하세요."
+                        android:textColor="@color/black"
+                        android:layout_marginTop="35dp"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="테이블링입니다."
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <LinearLayout
+                        android:id="@+id/dialog_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="25dp"
+                        android:background="@drawable/shape"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:onClick="@{home::onClick}"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="5sp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/question" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="8"
+                            android:paddingLeft="5dp"
+                            android:text="새로워진 원격 줄서기 접수 방법"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    app:layout_collapseMode="pin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_weight="9"
+                            android:gravity="center_vertical"
+                            android:id="@+id/toolbar_name"
+                            android:textColor="@color/black"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="16dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:id="@+id/iv_search"
+                            android:onClick="@{home::onClick}"
+                            android:src="@drawable/loupe" />
+
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:overScrollMode="never"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17dp"
+                        android:layout_marginTop="22dp"
+                        android:text="다양한 중화요리 어때요?"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_view"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_rv"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17dp"
+                        android:layout_marginTop="36dp"
+                        android:text="따끈따끈한 신상 맛집!"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_new_view"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:layout_marginBottom="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_new_rv"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17dp"
+                        android:layout_marginTop="15dp"
+                        android:text="방문자가 남긴 최근 리뷰!"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_review_view"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:layout_marginBottom="50dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_review_rv"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
