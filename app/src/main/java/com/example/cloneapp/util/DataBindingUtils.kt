@@ -4,16 +4,10 @@ import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableArrayList
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cloneapp.R
-import com.example.cloneapp.data.model.DataList
-import com.example.cloneapp.ui.search.SearchAdapter
 import java.text.SimpleDateFormat
 import android.widget.RatingBar
-import com.example.cloneapp.ui.search.SearchActivity
 import java.util.*
 
 object DataBindingUtils {
@@ -73,9 +67,8 @@ object DataBindingUtils {
     @BindingAdapter("bind_time")
     @JvmStatic
     fun bindTime(textView:TextView, writingtime:String){
-        val sampleDate = writingtime
         val sf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = sf.parse(sampleDate)
+        val date = sf.parse(writingtime)
         val today = Calendar.getInstance()
         val calcuDate = (today.time.time - date.time) / (60 * 60 * 24 * 1000)
 

@@ -1,31 +1,42 @@
 package com.example.cloneapp.ui.main
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.cloneapp.R
 import com.example.cloneapp.data.model.DataList
 import com.example.cloneapp.data.network.RetrofitClient
 import com.example.cloneapp.databinding.FragmentHomeBinding
-import com.example.cloneapp.ui.search.SearchActivity
+import com.example.cloneapp.ui.search.SearchFragment
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import kotlinx.android.synthetic.main.custom_dialog.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.abs
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : androidx.fragment.app.Fragment(), View.OnClickListener{
+    private lateinit var binding: FragmentHomeBinding
+
+    private val dialogImgList : MutableList<Int> = mutableListOf(
+            R.drawable.dialog_1,
+            R.drawable.dialog_2,
+            R.drawable.dialog_3,
+            R.drawable.dialog_4,
+            R.drawable.dialog_5,
+            R.drawable.dialog_6
+    )
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding : FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.home = this@HomeFragment
 
         loadData()
@@ -50,18 +61,24 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View){
         when (v.id) {
             R.id.dialog_button -> {
-                val dlg: AlertDialog.Builder = AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth)
-                dlg.setTitle("접수 방법")
-                dlg.setMessage("        ")
-                dlg.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, _ ->
-                    dialog.dismiss()
-                })
-                dlg.show()
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
+                val mBuilder = AlertDialog.Builder(context)
+                        .setView(mDialogView)
+
+                val  mAlertDialog = mBuilder.show()
+
+                val closeDialog = mDialogView.findViewById<ImageView>(R.id.iv_close)
+                closeDialog.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+
+                view_pager.adapter = ViewPagerAdapter(context,dialogImgList)
+                view_pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
             }
+
             R.id.iv_search -> {
-                val intent = Intent(context, SearchActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+                parentFragmentManager.beginTransaction().replace(R.id.linearLayout, SearchFragment()).commitAllowingStateLoss()
             }
             else -> null
         }
@@ -80,20 +97,20 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         var adapter = view?.context?.let { it1 -> MyAdapter(it1, it, 1) }
                         val layoutManager1 = LinearLayoutManager(context)
                         layoutManager1.orientation = LinearLayoutManager.HORIZONTAL
-                        rv_view.layoutManager = layoutManager1
-                        rv_view.adapter = adapter
+                        binding.rvView.layoutManager = layoutManager1
+                        binding.rvView.adapter = adapter
 
                         var newAdapter = view?.context?.let { it2 -> MyAdapter(it2, it,2 ) }
                         val layoutManager2 = LinearLayoutManager(context)
                         layoutManager2.orientation = LinearLayoutManager.VERTICAL
-                        rv_new_view.layoutManager = layoutManager2
-                        rv_new_view.adapter = newAdapter
+                        binding.rvNewView.layoutManager = layoutManager2
+                        binding.rvNewView.adapter = newAdapter
 
                         var reviewAdapter = view?.context?.let { it3 -> MyAdapter(it3, it, 3) }
                         val layoutManager3 = LinearLayoutManager(context)
                         layoutManager3.orientation = LinearLayoutManager.HORIZONTAL
-                        rv_review_view.layoutManager = layoutManager3
-                        rv_review_view.adapter = reviewAdapter
+                        binding.rvReviewView.layoutManager = layoutManager3
+                        binding.rvReviewView.adapter = reviewAdapter
 
                     }
                 }
@@ -104,5 +121,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
         })
     }
+
 
 }

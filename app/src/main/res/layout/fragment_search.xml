@@ -1,15 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="50dp"
-    tools:context=".ui.search.SearchFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <data>
+        <variable
+            name="search"
+            type="com.example.cloneapp.ui.search.SearchFragment" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/iv_search" />
+        android:orientation="vertical"
+        tools:context=".ui.search.SearchActivity">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rv3_shape"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/iv_back"
+                android:onClick="@{search::onClick}"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:id="@+id/et_searchText"
+                android:layout_marginStart="7dp"
+                android:background="@null"
+                android:layout_weight="8"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:hint="지역, 매장명, 메뉴명 검색">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/ll_text">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_search_result"/>
+
+                <TextView
+                    android:gravity="center_horizontal"
+                    android:text="검색 결과가 없습니다."
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:text="다른 검색어를 입력해 주세요."
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_rv"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_search_view"
+                android:layout_width="wrap_content"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
