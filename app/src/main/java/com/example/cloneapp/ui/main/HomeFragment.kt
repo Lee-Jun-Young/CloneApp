@@ -26,13 +26,13 @@ import kotlin.math.abs
 class HomeFragment : androidx.fragment.app.Fragment(), View.OnClickListener{
     private lateinit var binding: FragmentHomeBinding
 
-    private val dialogImgList : MutableList<Int> = mutableListOf(
-            R.drawable.dialog_1,
-            R.drawable.dialog_2,
-            R.drawable.dialog_3,
-            R.drawable.dialog_4,
-            R.drawable.dialog_5,
-            R.drawable.dialog_6
+    private val imageList : ArrayList<String> = arrayListOf(
+            "http://leejy.dothome.co.kr/dialog_1",
+            "http://leejy.dothome.co.kr/dialog_2",
+            "http://leejy.dothome.co.kr/dialog_3",
+            "http://leejy.dothome.co.kr/dialog_4",
+            "http://leejy.dothome.co.kr/dialog_5",
+            "http://leejy.dothome.co.kr/dialog_6"
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,21 +65,23 @@ class HomeFragment : androidx.fragment.app.Fragment(), View.OnClickListener{
                 val mBuilder = AlertDialog.Builder(context)
                         .setView(mDialogView)
 
+                val viewAdapter = view?.context?.let { context-> ViewPagerAdapter(context,imageList) }
+                val viewPager = mDialogView.findViewById<ViewPager2>(R.id.view_pager)
+                viewPager.adapter = viewAdapter
+                viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
                 val  mAlertDialog = mBuilder.show()
 
                 val closeDialog = mDialogView.findViewById<ImageView>(R.id.iv_close)
                 closeDialog.setOnClickListener {
                     mAlertDialog.dismiss()
                 }
-
-                view_pager.adapter = ViewPagerAdapter(context,dialogImgList)
-                view_pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
             }
 
             R.id.iv_search -> {
                 parentFragmentManager.beginTransaction().replace(R.id.linearLayout, SearchFragment()).commitAllowingStateLoss()
             }
+
             else -> null
         }
     }
@@ -121,6 +123,5 @@ class HomeFragment : androidx.fragment.app.Fragment(), View.OnClickListener{
             }
         })
     }
-
 
 }

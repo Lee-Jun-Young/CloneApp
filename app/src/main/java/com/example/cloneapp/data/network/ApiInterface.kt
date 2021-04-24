@@ -9,11 +9,11 @@ import retrofit2.http.POST
 
 interface ApiInterface {
 
-    @GET()
+    @GET("/CloneApp_loadData.php")
     fun requestAllData() : Call<List<DataList>>
 
     @FormUrlEncoded
-    @POST()
+    @POST("/CloneApp_searchData.php")
     fun requestSearchData(
             @Field("searchText") searchText: String?
     ): Call<List<DataList>>
